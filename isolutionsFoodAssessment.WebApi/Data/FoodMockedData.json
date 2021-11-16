@@ -1,0 +1,12 @@
+[
+  {
+    "id": "c6fa0665-2a5c-40aa-80a8-09671f1d206b",
+    "description": "Burger",
+    "imageUrl": "https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg"
+  },
+  {
+    "id": "60e89127-af18-451c-94bb-a905388aa4cc",
+    "description": "Hotdog",
+    "imageUrl": "https://cdn.pixabay.com/photo/2015/03/03/07/21/hot-dog-657039_960_720.jpg"
+  }
+]
