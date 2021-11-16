@@ -27,7 +27,7 @@ namespace isolutionsFoodAssessment.WebApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(FoodItem))]
-        public async Task<FoodItem> Insert(object createFoodItem)
+        public async Task<IActionResult> Insert(object createFoodItem)
         {
             // TODO: To be implemented by candidate
             throw new NotImplementedException();
