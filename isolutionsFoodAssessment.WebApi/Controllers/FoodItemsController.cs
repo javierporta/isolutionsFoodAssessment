@@ -9,18 +9,18 @@ namespace isolutionsFoodAssessment.WebApi.Controllers
     [Route("[controller]")]
     public class FoodItemsController : ControllerBase
     {
-        private readonly AssessmentDbContext assessmentDbContext;
+        private readonly AssessmentDbContext _assessmentDbContext;
 
         public FoodItemsController(AssessmentDbContext assessmentDbContext)
         {
-            this.assessmentDbContext = assessmentDbContext;
+            _assessmentDbContext = assessmentDbContext;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<FoodItem>))]
         public async Task<IActionResult> Get()
         {
-            var foodList = await assessmentDbContext.FoodItems.ToListAsync();
+            var foodList = await _assessmentDbContext.FoodItems.ToListAsync();
 
             return Ok(foodList);
         }
@@ -29,7 +29,7 @@ namespace isolutionsFoodAssessment.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(FoodItem))]
         public async Task<IActionResult> Insert(object createFoodItem)
         {
-            // TODO: To be implemented by candidate
+            // ToDo: To be implemented by you
             throw new NotImplementedException();
         }
     }
