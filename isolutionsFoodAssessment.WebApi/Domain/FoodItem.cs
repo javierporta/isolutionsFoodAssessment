@@ -4,6 +4,7 @@
     {
         public Guid Id { get; set; }
         public string Description { get; set; } = string.Empty;
+        public Decimal Calories { get; set; }
         public string ImageUrl { get; set; } = string.Empty;
     }
 }

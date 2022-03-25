@@ -17,6 +17,10 @@ namespace isolutionsFoodAssessment.WebApi.Data
             modelBuilder.Entity<FoodItem>()
                 .Property(e => e.Description)
                 .IsRequired();
+
+            modelBuilder.Entity<FoodItem>()
+                .Property(e => e.Calories)
+                .IsRequired();
         }
     }
 }

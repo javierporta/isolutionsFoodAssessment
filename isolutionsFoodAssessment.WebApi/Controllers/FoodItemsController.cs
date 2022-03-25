@@ -1,5 +1,7 @@
 using isolutionsFoodAssessment.WebApi.Data;
 using isolutionsFoodAssessment.WebApi.Domain;
+using isolutionsFoodAssessment.WebApi.RequestModels.FoodItem;
+using isolutionsFoodAssessment.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,28 +11,51 @@ namespace isolutionsFoodAssessment.WebApi.Controllers
     [Route("[controller]")]
     public class FoodItemsController : ControllerBase
     {
-        private readonly AssessmentDbContext _assessmentDbContext;
+        private readonly IFoodService _foodService;
 
-        public FoodItemsController(AssessmentDbContext assessmentDbContext)
+        public FoodItemsController(IFoodService foodService)
         {
-            _assessmentDbContext = assessmentDbContext;
+            _foodService = foodService;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<FoodItem>))]
-        public async Task<IActionResult> Get()
+        public async Task<IEnumerable<FoodItem>> GetAll()
         {
-            var foodList = await _assessmentDbContext.FoodItems.ToListAsync();
+            var foodList = await  _foodService.GetAll();
 
-            return Ok(foodList);
+            return foodList;
+        }
+
+        [HttpGet("id")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FoodItem))]
+        public async Task<ActionResult<FoodItem>> Get(Guid id)
+        {
+            if(id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            var foodItem = _foodService.GetOne(id);
+
+            return Ok(foodItem);
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(FoodItem))]
-        public async Task<IActionResult> Insert(object createFoodItem)
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Guid))]
+        public async Task<IActionResult> Insert(FoodItemCreateRequestModel createFoodItem)
         {
-            // ToDo: To be implemented by you
-            throw new NotImplementedException();
+            //ToDo: Add automapper
+            var foodItem = new FoodItem
+            {
+                Description = createFoodItem.Description,
+                Calories = createFoodItem.Calories,
+                ImageUrl = createFoodItem.ImageUrl
+            };
+
+            var addedFoodItem = await _foodService.AddAsync(foodItem);
+
+            return CreatedAtAction(nameof(Get), new {id= addedFoodItem.Id}, addedFoodItem);
         }
     }
 }
